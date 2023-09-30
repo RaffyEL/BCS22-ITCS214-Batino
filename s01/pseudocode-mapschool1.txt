@@ -1,0 +1,103 @@
+Pseudocode of “mapSchool1.py”
+
+Members: 
+ALCANCE, John Albert
+BATINO, John Rafael
+FERMIL, Chandrelle Stephanie
+
+
+function shortest_path(graph, start, end):
+	// Initialize a dictionary to store distances to each vertex, setting them initially to infinity.
+	distances = initialize_distances(graph, start)
+
+	// Set the distance to the start vertex to 0.
+	distances[start] = 0
+
+	// Create a priority queue (min-heap) to manage vertices based on their distances.
+	priority_queue = create_priority_queue()
+
+	// Create a dictionary to track the previous vertex in the shortest path.
+	previous_vertices = initialize_previous_vertices(graph)
+
+	// Add the start vertex to the priority queue with distance 0.
+	add_vertex_to_priority_queue(priority_queue, start, 0)
+
+	// Main loop to find the shortest path.
+	while priority_queue is not empty:
+    	// Get the vertex with the smallest distance from the priority queue.
+    	current_distance, current_vertex = get_vertex_from_priority_queue(priority_queue)
+
+    	// If the current distance is greater than the recorded distance, skip this vertex and continue.
+    	if current_distance > distances[current_vertex]:
+        	continue
+
+    	// Explore neighbors of the current vertex.
+    	for each neighbor_vertex, weight in neighbors of current_vertex:
+        	// Calculate the new distance to the neighbor through the current vertex.
+        	distance = distances[current_vertex] + weight
+
+        	// If the new distance is smaller than the recorded distance to the neighbor update the recorded distance and add the neighbor to the priority queue.
+        	if distance < distances[neighbor_vertex]:
+            	update_distance(distances, neighbor_vertex, distance)
+            	add_vertex_to_priority_queue(priority_queue, neighbor_vertex, distance)
+            	update_previous_vertex(previous_vertices, neighbor_vertex, current_vertex)
+
+	// Reconstruct the shortest path from end to start using previous_vertices.
+	shortest_path = reconstruct_path(previous_vertices, start, end)
+
+	// Return the distances and the shortest path.
+	return distances, shortest_path
+
+
+// Initialize distances to all vertices with infinity, except start.
+function initialize_distances(graph, start):
+	distances = {}
+	for each vertex in graph:
+    	distances[vertex] = infinity
+	distances[start] = 0
+	return distances
+
+// Initialize previous_vertices for all vertices.
+function initialize_previous_vertices(graph):
+	previous_vertices = {}
+	for each vertex in graph:
+    	previous_vertices[vertex] = null
+	return previous_vertices
+
+// Create an empty priority queue.
+function create_priority_queue():
+	priority_queue = empty_heap
+	return priority_queue
+
+// Add a vertex to the priority queue with a given distance.
+function add_vertex_to_priority_queue(priority_queue, vertex, distance):
+	push(vertex, distance, priority_queue)
+
+// Get the vertex with the smallest distance from the priority queue.
+function get_vertex_from_priority_queue(priority_queue):
+	return pop(priority_queue)
+
+// Update the distance to a vertex in the distances dictionary.
+function update_distance(distances, vertex, distance):
+	distances[vertex] = distance
+
+// Update the previous vertex for a given vertex.
+function update_previous_vertex(previous_vertices, vertex, previous):
+	previous_vertices[vertex] = previous
+
+// Reconstruct the shortest path from end to start.
+function reconstruct_path(previous_vertices, start, end):
+	shortest_path = []
+	while end is not null:
+    	add end to the beginning of shortest_path
+    	end = previous_vertices[end]
+	return shortest_path
+
+// Main program
+start = "Home"
+end = input("Where do you want to go?\n[Store A, Store B, Intersection, School]").title()
+
+distances, shortest_path = shortest_path(graph, start, end)
+
+print("Shortest distances:", distances[end])
+print("Shortest path from", start, "to", end, ":", shortest_path)
