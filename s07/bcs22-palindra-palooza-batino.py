@@ -85,4 +85,4 @@ palindrome_checker(palindra_palooza)
 
 
 # Reflection:
-# So far, this activity took a toll from my brain cells as it made me think how to reverse the order of the inputted palindrome and compare it to determine if it is a palindrome or not. To determine every characters of the inputted palindrome, I learned about .isalmun() that helped me along the code. The activity is quite hard only if I didn't stared at it hard enough for me understand.
+# So far, this activity has taken a toll on my brain cells as it made me think about how to reverse the order of the inputted palindrome and compare it to determine if it is a palindrome or not. To determine every character of the inputted palindrome, I learned about .isalmun() which helped me along the code. The activity is quite hard only if I didn't stare at it hard enough for me to understand.
