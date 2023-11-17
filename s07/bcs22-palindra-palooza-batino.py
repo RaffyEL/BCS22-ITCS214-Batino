@@ -34,23 +34,10 @@ class Stack:
 
         else:
             temp = self.top
-            popped = temp
+            popped = temp.data
             self.top = temp.next
             temp = None
             return popped
-
-    # "reverseCheck" examine the elements of the stack in reverse order
-    def reverseCheck(self):
-        if self.top is not None:
-            reverseList = [] # a list to store alphanumeric characters from the input string "palindra_palooza" in reversed order
-            temp = self.top
-            while temp:
-                # it appends the "data" of the current node to the list "reverseList"
-                reverseList.append(temp.data)
-                temp = temp.next
-            return reverseList
-        else:
-            print("Stack underflow.")
 
 
 # "palindrome_checker" is designed to check if the input string is a palindrome
@@ -59,12 +46,21 @@ def palindrome_checker(palindra_palooza):
     cleanedL = []  # a list to store alphanumeric characters from the input string "palindra_palooza"
     reversedS = Stack() # an instance to store the reversed order of the alphanumeric characters from the input string "palindra_palooza"
 
+    list_of_alphanumeric_elements = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
     for char in palindrome:
-        if char.isalnum():  # if the character is alphanumeric...[1][2]
+        if char in list_of_alphanumeric_elements:  # if the character is alphanumeric...[1][2]
             cleanedL.append(char)  # [1] appends the character to list "cleanedL"
             reversedS.push(char)  # [2] pushes the character onto the stack "reversedS"
 
-    reverseList = reversedS.reverseCheck()  # calls the "reverseCheck" to obtain a list of characters in reversed order
+    reverseList = [] # a list to store alphanumeric characters in REVERSE order from the input string "palindra_palooza"
+
+    # Iterates over the characters in list "cleanedL" and calls the "pop" method, reversing the order character by character as it stores it in the list "reverseList"
+    for char in range(len(cleanedL)):
+        popped = reversedS.pop()
+        reverseList.append(popped)
+
+
     cleanedPalindrome = ''.join(cleanedL)  # joins the list "cleanedL" into the string "''"
     reversedPalindrome = ''.join(reverseList)  # joins the list "reverseList" into the string "''"
 
@@ -74,15 +70,26 @@ def palindrome_checker(palindra_palooza):
 
     # compares "cleanedPalindrome" and "reversePalindrome" to determine if it is a palindrome or not
     if cleanedPalindrome == reversedPalindrome:
-        print(f"Therefore, {palindra_palooza} is a palindrome.")
+        print(f'!!! Therefore, "{palindra_palooza}" is a palindrome. !!!\n')
     else:
-        print(f'Therefore, "{palindra_palooza}" is not a palindrome.')
+        print(f'!!! Therefore, "{palindra_palooza}" is not a palindrome. !!!\n')
 
 
-# where the code begins when run and make you input a sentence/word that you think is a palindrome
-palindra_palooza = input("Enter your palindrome:\nFor example, 'Racecar' or 'A man, a plan, a canal, Panama!' are palindromes.\n-----> ")
-palindrome_checker(palindra_palooza)
+while True:
+    # where the code begins when run and make you input a sentence/word that you think is a palindrome
+    palindra_palooza = input("Enter your palindrome:\nFor example, 'Racecar' or 'A man, a plan, a canal, Panama!' are palindromes.\n-----> ")
+    palindrome_checker(palindra_palooza)
+    option = input("Continue using the checker? [yes] [no]\n-----> ")
+    if option.lower() == "yes":
+        print()
+        continue
+    elif option.lower() == "no":
+        print()
+        print("Closing the checker...")
+        break
+    else:
+        print("Invalid option. Please choose between [yes] [no].\n")
 
 
 # Reflection:
-# So far, this activity has taken a toll on my brain cells as it made me think about how to reverse the order of the inputted palindrome and compare it to determine if it is a palindrome or not. To determine every character of the inputted palindrome, I learned about .isalmun() which helped me along the code. The activity is quite hard only if I didn't stare at it hard enough for me to understand.
+# So far, this activity has taken a toll on my brain cells as it made me think about how to reverse the order of the inputted palindrome and compare it to determine if it is a palindrome or not. To determine every character of the inputted palindrome, I learned about .isalmun() which helped me along the code. Unfortunately, .isalnum() is not allowed to be used so I created a list of alphabets and numbers to compare characters from the inputted value. The activity was quite hard only if I didn't stare at it hard enough for me to understand.
